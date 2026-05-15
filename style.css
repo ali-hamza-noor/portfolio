@@ -653,3 +653,41 @@ a {
   font-size: 10px;
   letter-spacing: 3px;
 }
+
+/* ── MOBILE RESPONSIVENESS POLISH ── */
+
+/* Hide nav links on very small screens */
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Hero content padding and chips on mobile */
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 0 16px;
+  }
+
+  .hero-chips {
+    gap: 6px;
+  }
+
+  .chip {
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+}
+
+/* Talk card stacking on mobile */
+@media (max-width: 480px) {
+  .talk-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .talk-badge {
+    min-width: unset;
+    width: fit-content;
+  }
+}
