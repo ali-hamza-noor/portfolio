@@ -416,3 +416,43 @@ a {
   border-color: rgba(52, 211, 153, 0.2);
   color: rgba(110, 231, 183, 0.8);
 }
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.skill-group {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.skill-group-label {
+  color: var(--purple-bright);
+  font-size: 10px;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.skill-tag {
+  background: rgba(96, 165, 250, 0.07);
+  border: 1px solid rgba(96, 165, 250, 0.18);
+  color: rgba(147, 197, 253, 0.72);
+  padding: 4px 11px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+@media (max-width: 600px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
