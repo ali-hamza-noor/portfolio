@@ -654,6 +654,49 @@ a {
   letter-spacing: 3px;
 }
 
+/* ── NEBULA LAYER (parallax wrapper) ── */
+#nebula-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+@media (pointer: fine) {
+  body { cursor: none; }
+
+  .cursor-dot {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; height: 8px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s, transform 0.15s;
+    box-shadow: 0 0 10px 2px rgba(167, 139, 250, 0.6);
+  }
+
+  .cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(167, 139, 250, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+  }
+
+  .cursor-dot.hidden,
+  .cursor-ring.hidden { opacity: 0; }
+
+  a:hover ~ .cursor-dot,
+  button:hover ~ .cursor-dot { transform: translate(-50%, -50%) scale(1.8); }
+}
+
 /* ── MOBILE RESPONSIVENESS POLISH ── */
 
 /* Hide nav links on very small screens */
