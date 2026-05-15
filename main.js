@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavHighlight();
   initMouseParallax();
   initCustomCursor();
+  initParticleFigure();
 });
 
 function generateStars() {
@@ -173,4 +174,162 @@ function initCustomCursor() {
   }
 
   animateCursor();
+}
+
+function initParticleFigure() {
+  const canvas = document.getElementById('figure-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); buildParticles(); });
+
+  // Draw humanoid silhouette to offscreen canvas, sample filled pixels
+  function buildParticles() {
+    const W = 110, H = 210;
+    const off = document.createElement('canvas');
+    off.width = W; off.height = H;
+    const oc = off.getContext('2d');
+    oc.fillStyle = '#fff';
+
+    // Head
+    oc.beginPath();
+    oc.arc(55, 22, 19, 0, Math.PI * 2);
+    oc.fill();
+
+    // Neck
+    oc.fillRect(49, 40, 12, 12);
+
+    // Torso
+    oc.beginPath();
+    oc.roundRect(34, 52, 42, 68, 6);
+    oc.fill();
+
+    // Left arm
+    oc.save();
+    oc.translate(34, 58);
+    oc.rotate(0.25);
+    oc.beginPath();
+    oc.roundRect(-13, 0, 13, 58, 5);
+    oc.fill();
+    oc.restore();
+
+    // Right arm
+    oc.save();
+    oc.translate(76, 58);
+    oc.rotate(-0.25);
+    oc.beginPath();
+    oc.roundRect(0, 0, 13, 58, 5);
+    oc.fill();
+    oc.restore();
+
+    // Left leg
+    oc.save();
+    oc.translate(44, 118);
+    oc.rotate(0.08);
+    oc.beginPath();
+    oc.roundRect(-11, 0, 20, 72, 5);
+    oc.fill();
+    oc.restore();
+
+    // Right leg
+    oc.save();
+    oc.translate(66, 118);
+    oc.rotate(-0.08);
+    oc.beginPath();
+    oc.roundRect(-9, 0, 20, 72, 5);
+    oc.fill();
+    oc.restore();
+
+    const data = oc.getImageData(0, 0, W, H).data;
+    const gap  = 4; // px between sampled dots
+    const scale = canvas.height < 500 ? 1.6 : 2.1;
+
+    // Position figure on right side of hero
+    const originX = canvas.width  * 0.70 - (W * scale) / 2;
+    const originY = canvas.height * 0.50 - (H * scale) / 2;
+
+    particles.length = 0;
+
+    for (let y = 0; y < H; y += gap) {
+      for (let x = 0; x < W; x += gap) {
+        const i = (y * W + x) * 4;
+        if (data[i + 3] > 128) {
+          const hx = originX + x * scale;
+          const hy = originY + y * scale;
+          particles.push({ x: hx, y: hy, hx, hy, vx: 0, vy: 0 });
+        }
+      }
+    }
+  }
+
+  const particles = [];
+  buildParticles();
+
+  let mouseX = -9999, mouseY = -9999;
+
+  // Track mouse globally (figure responds even when cursor is elsewhere on page)
+  window.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouseX = -9999;
+    mouseY = -9999;
+  });
+
+  const REPEL_RADIUS   = 90;
+  const REPEL_STRENGTH = 6.5;
+  const SPRING         = 0.07;
+  const DAMPING        = 0.72;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of particles) {
+      const dx   = p.x - mouseX;
+      const dy   = p.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < REPEL_RADIUS && dist > 0) {
+        const force = ((REPEL_RADIUS - dist) / REPEL_RADIUS) ** 1.5;
+        p.vx += (dx / dist) * force * REPEL_STRENGTH;
+        p.vy += (dy / dist) * force * REPEL_STRENGTH;
+      }
+
+      // Spring back to home
+      p.vx += (p.hx - p.x) * SPRING;
+      p.vy += (p.hy - p.y) * SPRING;
+
+      // Damping
+      p.vx *= DAMPING;
+      p.vy *= DAMPING;
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Colour: purple when displaced, dimmer when at rest
+      const displacement = Math.sqrt((p.x - p.hx) ** 2 + (p.y - p.hy) ** 2);
+      const glow = Math.min(displacement / 30, 1);
+      const alpha = 0.18 + glow * 0.45;
+      const r = Math.round(167 + glow * 40);
+      const g = Math.round(139 - glow * 30);
+      const b = 250;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
 }
