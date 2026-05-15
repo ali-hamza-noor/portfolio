@@ -456,3 +456,125 @@ a {
 @media (max-width: 600px) {
   .skills-grid { grid-template-columns: 1fr; }
 }
+
+/* ── OPEN SOURCE ── */
+.oss-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.oss-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 18px;
+  transition: border-color 0.25s, background 0.25s;
+  cursor: pointer;
+}
+
+.oss-card:hover {
+  border-color: var(--border-purple);
+  background: rgba(167, 139, 250, 0.04);
+}
+
+.oss-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid var(--border-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.oss-name {
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.oss-sub {
+  color: var(--text-muted);
+  font-size: 10px;
+  margin-top: 3px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.oss-arrow {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.oss-card:hover .oss-arrow { color: var(--purple-light); }
+
+@media (max-width: 600px) {
+  .oss-grid { grid-template-columns: 1fr; }
+}
+
+/* ── SPEAKING ── */
+.talk-card {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-purple);
+  border-radius: 12px;
+  padding: 28px;
+  transition: background 0.25s, border-color 0.25s;
+  cursor: pointer;
+}
+
+.talk-card:hover {
+  background: rgba(167, 139, 250, 0.05);
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.talk-badge {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(59, 130, 246, 0.12));
+  border: 1px solid var(--border-purple);
+  border-radius: 10px;
+  padding: 16px 14px;
+  text-align: center;
+  flex-shrink: 0;
+  min-width: 70px;
+}
+
+.talk-badge-icon { font-size: 22px; }
+.talk-badge-label {
+  color: var(--purple-bright);
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+
+.talk-title {
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.talk-venue {
+  color: var(--purple-bright);
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+.talk-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--blue-bright);
+  font-size: 11px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+  padding-bottom: 1px;
+}
