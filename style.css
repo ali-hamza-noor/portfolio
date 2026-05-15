@@ -578,3 +578,78 @@ a {
   border-bottom: 1px solid rgba(96, 165, 250, 0.3);
   padding-bottom: 1px;
 }
+
+/* ── CONTACT ── */
+#contact {
+  position: relative;
+  background: var(--bg-deep);
+  border-top: 1px solid rgba(167, 139, 250, 0.1);
+  padding: 100px 48px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.contact-nebula {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-title {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 200;
+  letter-spacing: 6px;
+  color: var(--text-primary);
+  text-shadow: 0 0 50px rgba(167, 139, 250, 0.25);
+}
+
+.contact-sub {
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 12px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.contact-btn {
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  color: var(--purple-light);
+  padding: 13px 30px;
+  border-radius: 6px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  background: rgba(167, 139, 250, 0.04);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.contact-btn:hover {
+  background: rgba(167, 139, 250, 0.1);
+  border-color: rgba(167, 139, 250, 0.5);
+}
+
+.contact-btn--primary {
+  background: rgba(167, 139, 250, 0.13);
+  border-color: rgba(167, 139, 250, 0.45);
+}
+
+.contact-footer {
+  margin-top: 48px;
+  color: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 3px;
+}
