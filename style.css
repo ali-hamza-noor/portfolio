@@ -92,18 +92,6 @@ a {
   justify-content: center;
   overflow: hidden;
   background: var(--bg-deep);
-  background-image: url('assets/hero.jpg');
-  background-size: cover;
-  background-position: center 20%;
-  background-repeat: no-repeat;
-}
-
-#hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(3, 3, 8, 0.72);
-  z-index: 0;
 }
 
 #stars {
