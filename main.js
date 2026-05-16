@@ -252,16 +252,19 @@ function initParticleFigure() {
       p.x += p.vx;
       p.y += p.vy;
 
-      // Colour: purple when displaced, dimmer when at rest
+      // Bright star-like dots — white core, purple glow
       const displacement = Math.sqrt((p.x - p.hx) ** 2 + (p.y - p.hy) ** 2);
       const glow = Math.min(displacement / 30, 1);
-      const alpha = 0.18 + glow * 0.45;
-      const r = Math.round(167 + glow * 40);
-      const g = Math.round(139 - glow * 30);
-      const b = 250;
+      const alpha = 0.65 + glow * 0.35;
+      const r = Math.round(220 + glow * 35);
+      const g = Math.round(200 + glow * 10);
+      const b = 255;
+
+      ctx.shadowBlur  = 6 + glow * 10;
+      ctx.shadowColor = `rgba(167,139,250,${0.6 + glow * 0.4})`;
 
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
       ctx.fill();
     }
