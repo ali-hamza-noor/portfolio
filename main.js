@@ -199,9 +199,9 @@ function initNeuralNetwork() {
     edges  = [];
     pulses = [];
 
-    const netW   = canvas.width  * 0.34;
-    const netH   = canvas.height * 0.78;
-    const startX = canvas.width  * 0.60;
+    const netW   = canvas.width  * 0.92;
+    const netH   = canvas.height * 0.88;
+    const startX = canvas.width  * 0.04;
     const startY = (canvas.height - netH) / 2;
     const layerGap = netW / (LAYER_SIZES.length - 1);
 
